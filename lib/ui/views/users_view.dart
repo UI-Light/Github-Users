@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_users/ui/shared/user_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UsersView extends StatefulWidget {
   const UsersView({Key? key}) : super(key: key);
@@ -20,20 +21,17 @@ class _UsersViewState extends State<UsersView> {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: () {},
+            onPressed: () {
+              //final url = userPage;
+              //launchURL(url);
+            },
           ),
         ],
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 2.0),
         children: [
-          UserTile(
-            name: 'MichaelAngelo',
-            location: 'Unavailable',
-            profilePic: AssetImage('assets/saitama.jpg'),
-          ),
-          UserTile(name: 'Jasmine', location: 'Arabia'),
-          UserTile(name: 'Eren Yaeger', location: 'Shiganshina')
+          UserTile(),
         ],
       ),
     );

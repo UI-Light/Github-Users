@@ -1,11 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
-class UserTile extends StatelessWidget {
-  final String name;
-  final String location;
+class UserTile extends StatefulWidget {
+  @override
+  State<UserTile> createState() => _UserTileState();
+}
+
+class _UserTileState extends State<UserTile> {
+  final name;
+  final location;
   final profilePic;
+  final userPage;
 
-  UserTile({required this.name, required this.location, this.profilePic});
+  _UserTileState({this.name, this.location, this.profilePic, this.userPage});
+
+  factory _UserTileState.fromJson(Map<String, dynamic> json) {
+    return _UserTileState(
+      name: json['login'],
+      profilePic: json['avatar_url'],
+      userPage: json['html_url'],
+    );
+  }
+
+  Future<_UserTileState> getUsers() async {
+    final response = await http
+        .get(Uri.parse('https://api.github.com/users?language=flutter'));
+    return _UserTileState.fromJson(jsonDecode(response.body));
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +56,7 @@ class UserTile extends StatelessWidget {
         name,
       ),
       subtitle: Text(
-        location,
+        'Unavailable',
         style: TextStyle(fontSize: 12.0),
       ),
       trailing: Container(
@@ -28,7 +66,10 @@ class UserTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(width: 2.0, color: Color(0xFF757575))),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            final url = userPage;
+            launchURL(url);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
