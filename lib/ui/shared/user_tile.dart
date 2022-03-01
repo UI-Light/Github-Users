@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_users/model/user.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class UserTile extends StatelessWidget {
   final User user;
@@ -22,7 +23,19 @@ class UserTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(user.profilePic),
+        child: CachedNetworkImage(
+            imageBuilder: ((context, imageProvider) {
+              return CircleAvatar(
+                backgroundImage: imageProvider,
+                radius: 25.0,
+              );
+            }),
+            imageUrl: user.profilePic,
+            placeholder: (context, url) {
+              return Container(
+                color: Colors.grey,
+              );
+            }),
         radius: 25.0,
       ),
       title: Text(
