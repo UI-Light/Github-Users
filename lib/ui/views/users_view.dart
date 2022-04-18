@@ -4,6 +4,7 @@ import 'package:github_users/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:github_users/util/size_util.dart';
 
 class UsersView extends StatefulWidget {
   const UsersView({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _UsersViewState extends State<UsersView> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 2.0),
+        padding: EdgeInsets.symmetric(horizontal: 2.0.w),
         children: [
           for (var user in users)
             UserTile(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:github_users/model/user.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:github_users/util/size_util.dart';
 
 class UserTile extends StatelessWidget {
   final User user;
@@ -33,7 +34,10 @@ class UserTile extends StatelessWidget {
             imageUrl: user.profilePic,
             placeholder: (context, url) {
               return Container(
-                color: Colors.grey,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(25),
+                ),
               );
             }),
         radius: 25.0,
@@ -43,23 +47,24 @@ class UserTile extends StatelessWidget {
       ),
       subtitle: Text(
         user.location,
-        style: TextStyle(fontSize: 12.0),
+        style: TextStyle(fontSize: 12.0.w),
       ),
       trailing: Container(
-        height: 40,
-        width: 100,
+        height: 40.h,
+        width: 100.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(width: 2.0, color: Color(0xFF757575))),
+            border: Border.all(width: 2.0.w, color: Color(0xFF757575))),
         child: GestureDetector(
           onTap: () {
             launchURL(user.url);
           },
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Text(
               'View Profile',
               style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 12.0.sp,
                   color: Color(0xFFBDBDBD),
                   fontWeight: FontWeight.w400),
             ),
