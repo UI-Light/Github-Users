@@ -1,7 +1,8 @@
 import 'package:github_users/data/http_service.dart';
-import 'package:github_users/model/user.dart';
+import 'package:github_users/domain/model/user.dart';
+import 'package:github_users/domain/repository.dart';
 
-class UserRepository {
+class UserRepository implements Repository {
   late HttpService _httpService;
 
   UserRepository({HttpService? httpService}) {

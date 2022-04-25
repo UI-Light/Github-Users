@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_users/ui/shared/user_tile.dart';
-import 'package:github_users/model/user.dart';
+import 'package:github_users/domain/model/user.dart';
+import 'package:provider/provider.dart';
 import 'package:github_users/ui/views/user_view_model.dart';
 
 class UsersView extends StatefulWidget {
@@ -11,7 +12,7 @@ class UsersView extends StatefulWidget {
 }
 
 class _UsersViewState extends State<UsersView> {
-  late final userViewModel = UserViewModel();
+  // late final userViewModel = UserViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,13 @@ class _UsersViewState extends State<UsersView> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              userViewModel.getUsers();
+              context.watch<UserViewModel>().getUsers();
             },
           ),
         ],
       ),
       body: ValueListenableBuilder<List<User>>(
-        valueListenable: userViewModel.users,
+        valueListenable: context.watch<UserViewModel>().users,
         builder: (_, users, __) {
           return ListView(
             padding: EdgeInsets.symmetric(horizontal: 2.0),

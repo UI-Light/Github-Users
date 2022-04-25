@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:github_users/data/respository/user_repository.dart';
-import 'package:github_users/model/user.dart';
+import 'package:github_users/domain/model/user.dart';
 
-class UserViewModel {
+class UserViewModel extends ChangeNotifier {
   UserViewModel() {
     getUsers();
   }
@@ -16,5 +16,6 @@ class UserViewModel {
       final result = await userRepository.getUsers();
       _users.value = result;
     } catch (e) {}
+    notifyListeners();
   }
 }
