@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:github_users/ui/views/user_view_model.dart';
 import 'package:github_users/ui/views/users_view.dart';
@@ -9,7 +8,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     DevicePreview(
-      enabled: !kReleaseMode,
+      enabled: false,
       builder: (context) => Provider(
         create: ((context) => UserViewModel()),
         child: MaterialApp(
@@ -19,7 +18,7 @@ void main() {
             return child!;
           },
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(), //primarySwatch: Colors.black),
+          theme: ThemeData(),
           home: UsersView(),
         ),
       ),

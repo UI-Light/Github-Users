@@ -12,8 +12,6 @@ class UsersView extends StatefulWidget {
 }
 
 class _UsersViewState extends State<UsersView> {
-  // late final userViewModel = UserViewModel();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +24,13 @@ class _UsersViewState extends State<UsersView> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              context.watch<UserViewModel>().getUsers();
+              context.read<UserViewModel>().getUsers();
             },
           ),
         ],
       ),
       body: ValueListenableBuilder<List<User>>(
-        valueListenable: context.watch<UserViewModel>().users,
+        valueListenable: context.read<UserViewModel>().users,
         builder: (_, users, __) {
           return ListView(
             padding: EdgeInsets.symmetric(horizontal: 2.0),
